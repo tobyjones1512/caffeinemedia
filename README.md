@@ -9,20 +9,38 @@ Corporate website for **Caffeine Media** and its three operating companies:
 | **Caffeine Films**   | Distribution     | `/films`   |
 
 Built with Next.js (App Router), TypeScript, Tailwind CSS v4 and Motion.
-Every page is statically prerendered.
+
+## Fully static
+
+`next.config.ts` sets `output: "export"`, so `npm run build` writes plain
+HTML/CSS/JS to **`out/`**. There is no Node server, no API routes, no server
+actions and no image optimiser — upload `out/` to any static host (Netlify,
+Cloudflare Pages, GitHub Pages, S3, nginx) and it works.
+
+`trailingSlash: true` is deliberate: it emits `out/about/index.html` rather than
+`out/about.html`. Without it, the React payload directory (`out/about/`) shadows
+the HTML file and any host that resolves directories before extensions returns a
+404 for `/about`.
+
+Interactivity is all client-side, so nothing is lost in the export: navigation,
+the mobile menu, the FAQ accordion, the contact form and its validation, and the
+running timecode were each verified against a plain static file server.
 
 ## Running it
 
 ```bash
 npm install
-npm run dev     # http://localhost:3000
+npm run dev      # http://localhost:3000
 ```
 
 ```bash
-npm run build   # production build
-npm run start   # serve the production build
+npm run build    # writes the static site to out/
+npm run preview  # serve out/ exactly as a host would
 npm run lint
 ```
+
+Deploy by pointing your host at build command `npm run build` and publish
+directory `out`.
 
 ## Editing the content
 
@@ -61,10 +79,14 @@ to a plain fade under `prefers-reduced-motion`.
 ## Contact form
 
 `components/contact-form.tsx` validates client-side and then hands a formatted
-message to the visitor's mail client, so the site works on a static host with no
-backend. The chosen company decides the destination address and the form's
-accent colour. To collect submissions server-side instead, POST the `payload`
-string to your endpoint inside `handleSubmit` and drop the `mailto:` hand-off.
+message to the visitor's mail client, so the site needs no backend. The chosen
+company decides the destination address and the form's accent colour.
+
+To collect submissions properly, POST the `payload` string from `handleSubmit`
+to a form endpoint (Formspree, Basin, Netlify Forms, a Cloudflare Worker) and
+drop the `mailto:` hand-off. A third-party endpoint keeps the site static; a
+Next.js route handler or server action would not — those require dropping
+`output: "export"` and hosting on a Node runtime.
 
 ## Before launch
 
