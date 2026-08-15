@@ -8,12 +8,14 @@ export const company = {
   name: "Caffeine Media",
   short: "Caffeine",
   founded: "2026",
+  /** Canonical origin — used for metadata, the sitemap and robots.txt. */
+  url: "https://thecaffeinemediacompany.com",
   tagline: "Independent film, end to end.",
   positioning:
     "A three-company group built so an independent film never has to leave the building — produced, finished and released by people who answer to each other.",
-  email: "hello@caffeinemedia.com",
-  postEmail: "post@caffeinemedia.com",
-  submissionsEmail: "submissions@caffeinemedia.com",
+  email: "hello@thecaffeinemediacompany.com",
+  postEmail: "post@thecaffeinemediacompany.com",
+  submissionsEmail: "submissions@thecaffeinemediacompany.com",
   phone: "+44 (0)20 7946 0100",
   address: {
     line1: "Caffeine Media Ltd.",
@@ -123,7 +125,7 @@ export const divisions: Record<DivisionKey, Division> = {
       title: "Send us the script.",
       body: "Unsolicited submissions are open. One PDF, one paragraph on why now, and a note on what you need from a producer.",
       action: "Submit a project",
-      email: "submissions@caffeinemedia.com",
+      email: "submissions@thecaffeinemediacompany.com",
     },
   },
   post: {
@@ -198,7 +200,7 @@ export const divisions: Record<DivisionKey, Division> = {
       title: "Send us a spec sheet.",
       body: "Whole features, single reels or a folder of files in the wrong codec — tell us the deadline and the delivery spec and you get a fixed quote.",
       action: "Request a quote",
-      email: "post@caffeinemedia.com",
+      email: "post@thecaffeinemediacompany.com",
     },
   },
   films: {
@@ -273,7 +275,7 @@ export const divisions: Record<DivisionKey, Division> = {
       title: "Show us the film.",
       body: "Finished, in a rough cut, or still on a hard drive — send a screener link and we will give you a straight answer about its market.",
       action: "Submit a film",
-      email: "submissions@caffeinemedia.com",
+      email: "submissions@thecaffeinemediacompany.com",
     },
   },
 };

@@ -1,6 +1,8 @@
 import type { MetadataRoute } from "next";
 
-const base = "https://caffeinemedia.com";
+import { company } from "@/lib/content";
+
+const base = company.url;
 
 // Emitted as a static sitemap.xml at build time (required by `output: export`).
 export const dynamic = "force-static";

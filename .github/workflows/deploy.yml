@@ -1,0 +1,78 @@
+name: Build & deploy
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Let a running deploy finish rather than cancelling it half-published.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+env:
+  # Deploy only from a push to main; pull requests build as a check and stop.
+  IS_RELEASE: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - run: npm run lint
+
+      - name: Build the static export
+        run: npm run build
+
+      - name: Verify the export
+        run: |
+          set -e
+          for f in \
+            out/index.html \
+            out/about/index.html \
+            out/studios/index.html \
+            out/post/index.html \
+            out/films/index.html \
+            out/contact/index.html \
+            out/404.html \
+            out/sitemap.xml \
+            out/robots.txt \
+            out/CNAME \
+            out/.nojekyll
+          do
+            test -f "$f" || { echo "missing $f"; exit 1; }
+          done
+          echo "static export complete"
+
+      - uses: actions/configure-pages@v5
+        if: env.IS_RELEASE == 'true'
+
+      - uses: actions/upload-pages-artifact@v3
+        if: env.IS_RELEASE == 'true'
+        with:
+          path: out
+
+  deploy:
+    needs: build
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

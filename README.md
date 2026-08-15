@@ -39,8 +39,27 @@ npm run preview  # serve out/ exactly as a host would
 npm run lint
 ```
 
-Deploy by pointing your host at build command `npm run build` and publish
-directory `out`.
+## Deployment
+
+`.github/workflows/deploy.yml` builds and publishes to GitHub Pages on every
+push to `main`, at **thecaffeinemediacompany.com**. Pull requests run the same
+lint + build + export check but do not deploy.
+
+Two files in `public/` exist purely for Pages and are copied into `out/` by the
+build:
+
+- `CNAME` — the custom domain. It has to ship inside the published artifact, so
+  it lives in `public/`, not at the repo root.
+- `.nojekyll` — stops Pages running Jekyll, which strips directories beginning
+  with an underscore. Without it, all of `_next/` disappears and the site loads
+  with no CSS or JavaScript.
+
+**One-time setup:** in the repository, go to Settings → Pages and set *Source*
+to **GitHub Actions**. The workflow cannot do this itself, and until it is set
+the deploy job will fail.
+
+To host somewhere else instead, point the provider at build command
+`npm run build` and publish directory `out`.
 
 ## Editing the content
 
@@ -91,7 +110,10 @@ Next.js route handler or server action would not — those require dropping
 ## Before launch
 
 - Replace the placeholder address, phone number and email addresses in
-  `lib/content.ts`.
-- Point `metadataBase` in `app/layout.tsx`, `app/sitemap.ts` and `app/robots.ts`
-  at the real domain.
+  `lib/content.ts`. The addresses currently read `hello@`, `post@` and
+  `submissions@thecaffeinemediacompany.com` — they match the domain but no
+  mailbox exists behind them yet.
 - Add an Open Graph image (`app/opengraph-image.png`) once brand artwork exists.
+
+`company.url` in `lib/content.ts` is the single source for the canonical origin;
+`metadataBase`, the sitemap and robots.txt all read from it.
