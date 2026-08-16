@@ -1,4 +1,7 @@
-name: Build & deploy
+name: Deploy
+
+# The site is plain HTML/CSS/JS — there is nothing to build. This copies the
+# files to GitHub Pages exactly as they sit in the repository.
 
 on:
   push:
@@ -16,63 +19,54 @@ concurrency:
   group: pages
   cancel-in-progress: false
 
-env:
-  # Deploy only from a push to main; pull requests build as a check and stop.
-  IS_RELEASE: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
-
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-          cache: npm
-
-      - run: npm ci
-
-      - run: npm run lint
-
-      - name: Build the static export
-        run: npm run build
-
-      - name: Verify the export
-        run: |
-          set -e
-          for f in \
-            out/index.html \
-            out/about/index.html \
-            out/studios/index.html \
-            out/post/index.html \
-            out/films/index.html \
-            out/contact/index.html \
-            out/404.html \
-            out/sitemap.xml \
-            out/robots.txt \
-            out/CNAME \
-            out/.nojekyll
-          do
-            test -f "$f" || { echo "missing $f"; exit 1; }
-          done
-          echo "static export complete"
-
-      - uses: actions/configure-pages@v5
-        if: env.IS_RELEASE == 'true'
-
-      - uses: actions/upload-pages-artifact@v3
-        if: env.IS_RELEASE == 'true'
-        with:
-          path: out
-
   deploy:
-    needs: build
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
+      - uses: actions/checkout@v4
+
+      - name: Stage the site
+        run: |
+          mkdir -p _site
+          rsync -a \
+            --exclude '.git' \
+            --exclude '.github' \
+            --exclude '_site' \
+            --exclude 'README.md' \
+            ./ _site/
+
+      - name: Check the pages are all there
+        run: |
+          set -e
+          for f in \
+            _site/index.html \
+            _site/about.html \
+            _site/studios.html \
+            _site/post.html \
+            _site/films.html \
+            _site/contact.html \
+            _site/404.html \
+            _site/css/styles.css \
+            _site/js/main.js \
+            _site/favicon.svg \
+            _site/sitemap.xml \
+            _site/robots.txt \
+            _site/CNAME \
+            _site/.nojekyll
+          do
+            test -f "$f" || { echo "missing $f"; exit 1; }
+          done
+          echo "all pages and assets present"
+
+      - uses: actions/configure-pages@v5
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+
+      - uses: actions/upload-pages-artifact@v3
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+
       - id: deployment
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         uses: actions/deploy-pages@v4
