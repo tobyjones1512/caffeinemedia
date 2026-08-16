@@ -20,23 +20,24 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  deploy:
+  # Runs on every push and pull request. Deliberately has no `environment:` —
+  # that is restricted to the default branch, and a job-level environment is
+  # resolved before any step runs, so putting it here fails the whole job on
+  # pull requests before a runner is even assigned.
+  check:
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
 
       - name: Stage the site
         run: |
           mkdir -p _site
-          rsync -a \
-            --exclude '.git' \
-            --exclude '.github' \
-            --exclude '_site' \
-            --exclude 'README.md' \
-            ./ _site/
+          tar -cf - \
+            --exclude='./.git' \
+            --exclude='./.github' \
+            --exclude='./_site' \
+            --exclude='./README.md' \
+            . | tar -xf - -C _site
 
       - name: Check the pages are all there
         run: |
@@ -50,6 +51,7 @@ jobs:
             _site/contact.html \
             _site/404.html \
             _site/css/styles.css \
+            _site/css/fonts.css \
             _site/js/main.js \
             _site/favicon.svg \
             _site/sitemap.xml \
@@ -59,6 +61,7 @@ jobs:
           do
             test -f "$f" || { echo "missing $f"; exit 1; }
           done
+          test -n "$(ls _site/fonts/*.woff2)" || { echo "no fonts staged"; exit 1; }
           echo "all pages and assets present"
 
       - uses: actions/configure-pages@v5
@@ -67,6 +70,13 @@ jobs:
       - uses: actions/upload-pages-artifact@v3
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
 
+  deploy:
+    needs: check
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
       - id: deployment
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         uses: actions/deploy-pages@v4
