@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Caffeine Media</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light py-3 sticky-top shadow-sm">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="#">
+                <img src="assets/logo.png" alt="Caffeine Media Logo" width="50" height="50" class="d-inline-block align-text-top me-2 logo-img">
+                <span class="fw-bold fs-4 brand-text">Caffeine Media</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav fw-semibold">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#services">Services</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section d-flex align-items-center text-center">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <h1 class="display-3 fw-bold mb-4 hero-title">Fueling Your Creative Vision.</h1>
+                    <p class="lead mb-5 hero-subtitle">We are a premier film and media company specializing in high-end post-production, 2D to 3D conversion, distribution, and marketing.</p>
+                    <a href="#services" class="btn btn-primary btn-lg px-5 py-3 rounded-pill fw-bold shadow-sm custom-btn">Explore Our Work</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-5 bg-white">
+        <div class="container py-5">
+            <div class="text-center mb-5">
+                <h2 class="fw-bold fs-1 section-title">Our Services</h2>
+                <div class="title-underline mx-auto mt-3"></div>
+            </div>
+
+            <div class="row g-4">
+                <!-- Post Production -->
+                <div class="col-md-4">
+                    <div class="card h-100 border-0 shadow-sm service-card p-4">
+                        <div class="card-body text-center">
+                            <div class="service-icon mb-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" class="bi bi-film text-primary" viewBox="0 0 16 16">
+                                    <path d="M0 1a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1zm4 0v6h8V1zm8 8H4v6h8zM1 1v2h2V1zm2 3H1v2h2zM1 7v2h2V7zm2 3H1v2h2zm-2 3v2h2v-2zM15 1h-2v2h2zm-2 3v2h2V4zm2 3h-2v2h2zm-2 3v2h2v-2zm2 3h-2v2h2z"/>
+                                </svg>
+                            </div>
+                            <h4 class="card-title fw-bold">Post Production</h4>
+                            <p class="card-text text-muted mt-3">State-of-the-art editing, color grading, and visual effects to bring your story to life.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2D to 3D Conversion -->
+                <div class="col-md-4">
+                    <div class="card h-100 border-0 shadow-sm service-card p-4">
+                        <div class="card-body text-center">
+                            <div class="service-icon mb-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" class="bi bi-badge-3d text-primary" viewBox="0 0 16 16">
+                                    <path d="M4.52 8.368h.664c.646 0 1.055.378 1.055.942 0 .584-.409.957-1.079.957H4v1.36h1.223c1.458 0 2.396-.867 2.396-2.193 0-1.022-.646-1.782-1.636-1.954V7.45c.783-.178 1.341-.856 1.341-1.782 0-1.22-.962-2.023-2.316-2.023H4v1.353h1.109c.606 0 1.01.351 1.01.884 0 .543-.404.898-1.026.898H4.52zm5.786-2.738v3.298c0 1.25.9 2.052 2.32 2.052 1.416 0 2.315-.802 2.315-2.052V5.63H13.63v3.308c0 .64-.393 1.026-1.019 1.026-.622 0-1.015-.386-1.015-1.026V5.63z"/>
+                                    <path d="M14 3a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zM2 2a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2z"/>
+                                </svg>
+                            </div>
+                            <h4 class="card-title fw-bold">2D to 3D Conversion</h4>
+                            <p class="card-text text-muted mt-3">Industry-leading dimensionalization creating immersive stereoscopic experiences.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Distribution & Marketing -->
+                <div class="col-md-4">
+                    <div class="card h-100 border-0 shadow-sm service-card p-4">
+                        <div class="card-body text-center">
+                            <div class="service-icon mb-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" class="bi bi-megaphone text-primary" viewBox="0 0 16 16">
+                                    <path d="M13 2.5a1.5 1.5 0 0 1 3 0v11a1.5 1.5 0 0 1-3 0v-.214c-2.162-1.241-4.49-1.843-6.912-2.083l.405 2.712A1 1 0 0 1 5.51 15.1h-.548a1 1 0 0 1-.916-.599l-1.85-3.49a68.14 68.14 0 0 0-.202-.003A2.014 2.014 0 0 1 0 9V7a2.02 2.02 0 0 1 1.992-2.013 74.663 74.663 0 0 0 2.483-.075c3.043-.154 6.148-.849 8.525-2.199V2.5zm1 0v11a.5.5 0 0 0 1 0v-11a.5.5 0 0 0-1 0zm-1 1.35c-2.344 1.205-5.209 1.842-8 2.033v4.233c2.791.191 5.656.828 8 2.033V3.85zm-9 6.545C2.569 10.183 1.284 10.328 1 10.4V5.6c.284.073 1.569.217 3 .395v4.39z"/>
+                                </svg>
+                            </div>
+                            <h4 class="card-title fw-bold">Distribution & Marketing</h4>
+                            <p class="card-text text-muted mt-3">Strategic campaigns and global distribution networks to maximize your audience reach.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-4 mt-auto">
+        <div class="container text-center">
+            <p class="mb-0">&copy; 2024 Caffeine Media. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap 5 JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

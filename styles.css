@@ -1,0 +1,98 @@
+:root {
+    --brand-primary: #5c4033; /* Earthy Dark Brown */
+    --brand-secondary: #8b5a2b; /* Lighter Brown */
+    --brand-accent: #d2b48c; /* Tan/Khaki */
+    --brand-light: #f5f5dc; /* Beige */
+    --brand-dark: #2b1d14; /* Very Dark Brown */
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    color: var(--brand-dark);
+    background-color: #faf9f6;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6, .brand-text {
+    font-family: 'Playfair Display', serif;
+}
+
+/* Navbar */
+.navbar {
+    background-color: rgba(255, 255, 255, 0.95) !important;
+    backdrop-filter: blur(10px);
+}
+.brand-text {
+    color: var(--brand-primary);
+    letter-spacing: -0.5px;
+}
+.nav-link {
+    color: var(--brand-primary) !important;
+    transition: color 0.3s ease;
+}
+.nav-link:hover, .nav-link.active {
+    color: var(--brand-secondary) !important;
+}
+.logo-img {
+    object-fit: contain;
+}
+
+/* Hero Section */
+.hero-section {
+    background: linear-gradient(135deg, var(--brand-light) 0%, rgba(210,180,140,0.3) 100%);
+    min-height: 80vh;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+.hero-title {
+    color: var(--brand-primary);
+    letter-spacing: -1.5px;
+    line-height: 1.1;
+}
+.hero-subtitle {
+    color: #555;
+}
+
+/* Buttons */
+.custom-btn {
+    background-color: var(--brand-primary);
+    border-color: var(--brand-primary);
+    color: #fff;
+    transition: all 0.3s ease;
+}
+.custom-btn:hover {
+    background-color: var(--brand-secondary);
+    border-color: var(--brand-secondary);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(92, 64, 51, 0.2) !important;
+}
+
+/* Services */
+.section-title {
+    color: var(--brand-dark);
+}
+.title-underline {
+    height: 4px;
+    width: 60px;
+    background-color: var(--brand-accent);
+    border-radius: 2px;
+}
+.service-card {
+    transition: all 0.4s ease;
+    border-radius: 16px;
+    background: #fff;
+}
+.service-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(92, 64, 51, 0.1) !important;
+}
+.service-icon svg {
+    color: var(--brand-secondary) !important;
+}
+
+/* Footer */
+footer {
+    background-color: var(--brand-dark) !important;
+}
