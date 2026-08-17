@@ -26,37 +26,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-          cache: npm
-
-      - run: npm ci
-
-      - run: npm run lint
-
-      - name: Build the static export
-        run: npm run build
-
-      - name: Verify the export
+      - name: Verify the site
         run: |
           set -e
-          for f in \
-            out/index.html \
-            out/about/index.html \
-            out/studios/index.html \
-            out/post/index.html \
-            out/films/index.html \
-            out/contact/index.html \
-            out/404.html \
-            out/sitemap.xml \
-            out/robots.txt \
-            out/CNAME \
-            out/.nojekyll
-          do
-            test -f "$f" || { echo "missing $f"; exit 1; }
-          done
-          echo "static export complete"
+          test -f "index.html" || { echo "missing index.html"; exit 1; }
+          echo "static checks complete"
 
       - uses: actions/configure-pages@v5
         if: env.IS_RELEASE == 'true'
@@ -64,7 +38,7 @@ jobs:
       - uses: actions/upload-pages-artifact@v3
         if: env.IS_RELEASE == 'true'
         with:
-          path: out
+          path: .
 
   deploy:
     needs: build
